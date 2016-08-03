@@ -1,3 +1,7 @@
+# .bash_profile -- initialization script for bash(1) login
+# Author: Luis Colorado <luiscoloradourcola@gmail.com>
+# Date: Wed Aug  3 23:27:25 EEST 2016
+#
 export CDPATH=.:$HOME
 export MANPATH=$HOME/man:$MANPATH
 export PATH=$HOME/bin:$PATH
@@ -11,3 +15,5 @@ cal
 calendar
 ENV="${HOME}/.bashrc"
 test -f "${ENV}" && source "${ENV}"
+
+test -x /usr/games/fortune && /usr/games/fortune freebsd-tips
