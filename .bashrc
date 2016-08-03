@@ -11,10 +11,20 @@ e="\[[0m\]"
 root="\[[1;33;41m\]"
 
 home_esc="$(echo $HOME | sed -e 's/\//\\\//g')"
-host="$(hostname | sed -e 's/\..*//')"
 tty="$(tty | sed -e 's/^\/dev\///')"
+host="$(hostname | sed -e 's/\..*//')"
 
-PS1='$(if [ $(id -u) -eq 0 ]; then echo "'"${root}"'"; else echo "'"${r}"'"; fi)'"${USER}${w}@${b}${host}${w}:${g}"'$(pwd | sed -e "s/^'"${home_esc}"'/~/;/.\{20\}/s/^\(.[^\/]*\/\)....*\(\/[^\/]*\/[^\/]*\)/\1'"${y}"'..'"${g}"'\2/")'"${w}"'\$'"${e}"' '
+if [ "$(id -u)" -eq 0 ]
+then
+    user="${root}${USER}${e}"
+    prompt='#'
+else
+    user="${r}${USER}"
+    prompt='$'
+fi
+
+
+PS1="${user}${w}@${b}${host}${w}:${g}"'$(pwd | sed -e "s/^'"${home_esc}"'/~/;/.\{20\}/s/^\(.[^\/]*\/\)....*\(\/[^\/]*\/[^\/]*\)/\1'"${y}..${g}"'\2/")'"${w}${prompt}${e}"' '
 PS1="\[]0;${tty} - ${USER}@${host} - "'$(pwd)'"\]$PS1"
 
 alias la='ls -a'
